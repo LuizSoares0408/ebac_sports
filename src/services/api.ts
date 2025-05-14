@@ -1,0 +1,23 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
+// Defina o tipo Produto aqui
+export interface Produto {
+  id: number
+  nome: string
+  preco: number
+  descricao: string // Adicione a descrição, se existir
+  imagem: string // Adicione a propriedade da imagem
+  // Adicione outras propriedades, se necessário
+}
+
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://fake-api-tau.vercel.app/api' }),
+  endpoints: (builder) => ({
+    getProdutos: builder.query<Produto[], void>({
+      query: () => '/ebac_sports'
+    })
+  })
+})
+
+export const { useGetProdutosQuery } = api

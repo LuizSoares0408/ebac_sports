@@ -1,38 +1,28 @@
-import { Produto as ProdutoType } from '../App'
-import Produto from '../components/Produto'
-
+import React from 'react'
+import type { Produto } from '../services/api'
+import ProdutoComponent from '../components/Produto'
 import * as S from './styles'
 
 type Props = {
-  produtos: ProdutoType[]
-  favoritos: ProdutoType[]
-  adicionarAoCarrinho: (produto: ProdutoType) => void
-  favoritar: (produto: ProdutoType) => void
+  produtos: Produto[]
+  handleFavoritar: (produto: Produto) => void
+  handleAdicionarAoCarrinho: (produto: Produto) => void
 }
 
-const ProdutosComponent = ({
+const Produtos = ({
   produtos,
-  favoritos,
-  adicionarAoCarrinho,
-  favoritar
+  handleFavoritar,
+  handleAdicionarAoCarrinho
 }: Props) => {
-  const produtoEstaNosFavoritos = (produto: ProdutoType) => {
-    const produtoId = produto.id
-    const IdsDosFavoritos = favoritos.map((f) => f.id)
-
-    return IdsDosFavoritos.includes(produtoId)
-  }
-
   return (
     <>
       <S.Produtos>
         {produtos.map((produto) => (
-          <Produto
-            estaNosFavoritos={produtoEstaNosFavoritos(produto)}
+          <ProdutoComponent
             key={produto.id}
             produto={produto}
-            favoritar={favoritar}
-            aoComprar={adicionarAoCarrinho}
+            handleFavoritar={handleFavoritar}
+            handleAdicionarAoCarrinho={handleAdicionarAoCarrinho}
           />
         ))}
       </S.Produtos>
@@ -40,4 +30,4 @@ const ProdutosComponent = ({
   )
 }
 
-export default ProdutosComponent
+export default Produtos
